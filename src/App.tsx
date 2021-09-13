@@ -1,9 +1,8 @@
 import React from "react"
-import Box from "./components/Styled/Box"
-import Text from "./components/Styled/Text"
 import { useActions } from "./hooks/useActions"
 import { useTypedSelector } from "./hooks/useTypedSelector"
 import { Customer } from "./models/Customer"
+import { Box, Flex, Text, Image } from "rebass"
 
 const App: React.FC = () => {
     const { setCustomers, setAgeFilter } = useActions()
@@ -101,62 +100,81 @@ const App: React.FC = () => {
                     <Text>{ageRange().max}</Text>
                 </Box>
             </Box>
-            <Box
+            <Flex
+                sx={{
+                    display: "flex",
+                    flex: 1,
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                }}
                 m={[1, 2, 4]}
-                display="flex"
                 flexDirection={["column", "row"]}
-                flex={1}
-                flexWrap="wrap"
-                justifyContent="space-around"
-                alignItems="center"
             >
                 {customers
                     .filter((customer) => customer.age <= ageFilter)
                     .map((customer) => {
                         return (
                             <Box
-                                m={2}
-                                width={"100%"}
-                                display="flex"
-                                flex={1}
-                                flexDirection="column"
-                                justifyContent="space-around"
-                                alignItems="flex-start"
+                                m={[1, 1, 2]}
+                                p={[1, 1, 2]}
+                                width={[1, 1 / 2.15, 1 / 3.5, 1 / 4.5]}
+                                bg={"white"}
                                 key={customer.email}
+                                sx={{
+                                    borderRadius: 12,
+                                    boxShadow:
+                                        "rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px",
+                                }}
                             >
-                                <Box>
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                    }}
+                                >
                                     <Box
-                                        style={{
+                                        sx={{
                                             borderRadius: "50%",
                                             overflow: "hidden",
                                             height: "100px",
                                             width: "100px",
                                         }}
                                     >
-                                        <img
-                                            height={100}
-                                            width={100}
-                                            style={{
+                                        <Image
+                                            sx={{
                                                 objectFit: "cover",
                                                 overflow: "hidden",
+                                                height: 100,
+                                                width: 100,
                                             }}
                                             src={customer.profilePhoto}
                                             alt={customer.first_name}
                                         />
                                     </Box>
-                                    <Text
-                                        p={1}
-                                    >{`${customer.first_name} ${customer.second_name}`}</Text>
-                                </Box>
-                                <Box>
-                                    <Text maxWidth={[160, 200]} p={1}>
-                                        {customer.email}
-                                    </Text>
+                                    <Box m={[1, 1, 2]} p={[1, 1, 2]}>
+                                        <Text
+                                            p={1}
+                                        >{`${customer.first_name} ${customer.second_name}`}</Text>
+                                        <Text
+                                            sx={{
+                                                boxSizing: "border-box",
+                                                whiteSpace: "nowrap",
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                            }}
+                                            maxWidth={[160, 200]}
+                                            p={1}
+                                        >
+                                            {customer.email}
+                                        </Text>
+                                    </Box>
                                 </Box>
                             </Box>
                         )
                     })}
-            </Box>
+            </Flex>
             <Box>
                 <Text>{}</Text>
             </Box>
