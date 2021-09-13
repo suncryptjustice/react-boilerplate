@@ -5874,7 +5874,7 @@ var CustomersActionEnum;
 
 (function (CustomersActionEnum) {
   CustomersActionEnum["SET_CUSTOMERS"] = "SET_CUSTOMERS";
-  CustomersActionEnum["APPLY_ageFilter"] = "APPLY_ageFilter";
+  CustomersActionEnum["APPLY_AGE_FILTER"] = "APPLY_AGE_FILTER";
 })(CustomersActionEnum || (CustomersActionEnum = {}));
 ;// CONCATENATED MODULE: ./src/store/reducers/customers/action-creators.ts
 
@@ -5887,7 +5887,7 @@ var CustomersActionCreators = {
   },
   setAgeFilter: function setAgeFilter(ageFilter) {
     return {
-      type: CustomersActionEnum.APPLY_ageFilter,
+      type: CustomersActionEnum.APPLY_AGE_FILTER,
       payload: ageFilter
     };
   }
@@ -6069,16 +6069,35 @@ var App = function App() {
   react.useEffect(function () {
     setCustomers(dummyData);
   }, []);
-  return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h1", null, "React Boilerplate"), /*#__PURE__*/react.createElement(dist/* Box */.xu, null, /*#__PURE__*/react.createElement(Text, {
+  return /*#__PURE__*/react.createElement(dist/* Box */.xu, null, /*#__PURE__*/react.createElement(dist/* Flex */.kC, {
+    sx: {
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/react.createElement(Text, {
+    m: [2, 2, 4],
+    as: "h1"
+  }, "React Redux Boilerplate"), /*#__PURE__*/react.createElement(dist/* Flex */.kC, {
+    m: [1, 1, 2],
+    sx: {
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/react.createElement(Text, {
     mb: 2
-  }, "Age Filter"), /*#__PURE__*/react.createElement(dist/* Box */.xu, {
+  }, "Age Filter"), /*#__PURE__*/react.createElement(Text, {
+    mb: 1
+  }, "Display characters bellow: " + ageFilter + " years"), /*#__PURE__*/react.createElement(dist/* Box */.xu, {
     display: "flex"
-  }, /*#__PURE__*/react.createElement(Text, null, ageRange().min), /*#__PURE__*/react.createElement("input", {
+  }, /*#__PURE__*/react.createElement("input", {
     onInput: rangeInputHanler,
     type: "range",
-    max: ageRange().max,
-    min: ageRange().min
-  }), /*#__PURE__*/react.createElement(Text, null, ageRange().max))), /*#__PURE__*/react.createElement(dist/* Flex */.kC, {
+    value: ageFilter,
+    max: 99,
+    min: 1
+  })))), /*#__PURE__*/react.createElement(dist/* Flex */.kC, {
     sx: {
       display: "flex",
       flex: 1,
@@ -6089,7 +6108,7 @@ var App = function App() {
     m: [1, 2, 4],
     flexDirection: ["column", "row"]
   }, customers.filter(function (customer) {
-    return customer.age <= ageFilter;
+    return customer.age < ageFilter;
   }).map(function (customer) {
     return /*#__PURE__*/react.createElement(dist/* Box */.xu, {
       m: [1, 1, 2],
@@ -6099,7 +6118,11 @@ var App = function App() {
       key: customer.email,
       sx: {
         borderRadius: 12,
-        boxShadow: "rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px"
+        boxShadow: "rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px",
+        transition: "box-shadow 0.2s ease-out",
+        ":hover": {
+          boxShadow: "rgb(50 50 93 / 34%) 0px 6px 12px -2px, rgb(0 0 0 / 39%) 0px 6px 10px -3px"
+        }
       }
     }, /*#__PURE__*/react.createElement(dist/* Box */.xu, {
       sx: {
@@ -6127,9 +6150,13 @@ var App = function App() {
       m: [1, 1, 2],
       p: [1, 1, 2]
     }, /*#__PURE__*/react.createElement(Text, {
-      p: 1
+      p: 1,
+      sx: {
+        cursor: "default"
+      }
     }, customer.first_name + " " + customer.second_name), /*#__PURE__*/react.createElement(Text, {
       sx: {
+        cursor: "default",
         boxSizing: "border-box",
         whiteSpace: "nowrap",
         overflow: "hidden",
@@ -6137,8 +6164,18 @@ var App = function App() {
       },
       maxWidth: [160, 200],
       p: 1
-    }, customer.email))));
-  })), /*#__PURE__*/react.createElement(dist/* Box */.xu, null, /*#__PURE__*/react.createElement(Text, null)));
+    }, customer.email), /*#__PURE__*/react.createElement(Text, {
+      sx: {
+        cursor: "default",
+        boxSizing: "border-box",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+      },
+      maxWidth: [160, 200],
+      p: 1
+    }, customer.age + " y.o."))));
+  })));
 };
 
 /* harmony default export */ const src_App = (App);
@@ -6175,7 +6212,7 @@ function authReducer(state, action) {
         customers: action.payload
       });
 
-    case CustomersActionEnum.APPLY_ageFilter:
+    case CustomersActionEnum.APPLY_AGE_FILTER:
       return customers_assign(customers_assign({}, state), {
         ageFilter: action.payload
       });
