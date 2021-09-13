@@ -7,7 +7,7 @@ export interface CustomersState {
 
 export enum CustomersActionEnum {
     SET_CUSTOMERS = "SET_CUSTOMERS",
-    APPLY_ageFilter = "APPLY_ageFilter",
+    APPLY_AGE_FILTER = "APPLY_AGE_FILTER",
 }
 
 export interface SetCustomersAction {
@@ -15,7 +15,7 @@ export interface SetCustomersAction {
     payload: Customer[]
 }
 export interface ApplyFilterAction {
-    type: CustomersActionEnum.APPLY_ageFilter
+    type: CustomersActionEnum.APPLY_AGE_FILTER
     payload: number
 }
 

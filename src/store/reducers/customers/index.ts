@@ -12,7 +12,7 @@ export default function authReducer(
     switch (action.type) {
         case CustomersActionEnum.SET_CUSTOMERS:
             return { ...state, customers: action.payload }
-        case CustomersActionEnum.APPLY_ageFilter:
+        case CustomersActionEnum.APPLY_AGE_FILTER:
             return { ...state, ageFilter: action.payload }
         default:
             return state

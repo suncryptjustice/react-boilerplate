@@ -11,7 +11,7 @@ export const CustomersActionCreators = {
         payload: customers,
     }),
     setAgeFilter: (ageFilter: number): ApplyFilterAction => ({
-        type: CustomersActionEnum.APPLY_ageFilter,
+        type: CustomersActionEnum.APPLY_AGE_FILTER,
         payload: ageFilter,
     }),
 }

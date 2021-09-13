@@ -85,21 +85,40 @@ const App: React.FC = () => {
     }, [])
 
     return (
-        <div>
-            <h1>React Boilerplate</h1>
-            <Box>
-                <Text mb={2}>Age Filter</Text>
-                <Box display={"flex"}>
-                    <Text>{ageRange().min}</Text>
-                    <input
-                        onInput={rangeInputHanler}
-                        type="range"
-                        max={ageRange().max}
-                        min={ageRange().min}
-                    />
-                    <Text>{ageRange().max}</Text>
-                </Box>
-            </Box>
+        <Box>
+            <Flex
+                sx={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
+                <Text m={[2, 2, 4]} as={"h1"}>
+                    React Redux Boilerplate
+                </Text>
+                <Flex
+                    m={[1, 1, 2]}
+                    sx={{
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <Text mb={2}>Age Filter</Text>
+                    <Text
+                        mb={1}
+                    >{`Display characters bellow: ${ageFilter} years`}</Text>
+                    <Box display={"flex"}>
+                        <input
+                            onInput={rangeInputHanler}
+                            type="range"
+                            value={ageFilter}
+                            max={99}
+                            min={1}
+                        />
+                    </Box>
+                </Flex>
+            </Flex>
             <Flex
                 sx={{
                     display: "flex",
@@ -112,7 +131,7 @@ const App: React.FC = () => {
                 flexDirection={["column", "row"]}
             >
                 {customers
-                    .filter((customer) => customer.age <= ageFilter)
+                    .filter((customer) => customer.age < ageFilter)
                     .map((customer) => {
                         return (
                             <Box
@@ -125,6 +144,11 @@ const App: React.FC = () => {
                                     borderRadius: 12,
                                     boxShadow:
                                         "rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px",
+                                    transition: "box-shadow 0.2s ease-out",
+                                    ":hover": {
+                                        boxShadow:
+                                            "rgb(50 50 93 / 34%) 0px 6px 12px -2px, rgb(0 0 0 / 39%) 0px 6px 10px -3px",
+                                    },
                                 }}
                             >
                                 <Box
@@ -156,9 +180,11 @@ const App: React.FC = () => {
                                     <Box m={[1, 1, 2]} p={[1, 1, 2]}>
                                         <Text
                                             p={1}
+                                            sx={{ cursor: "default" }}
                                         >{`${customer.first_name} ${customer.second_name}`}</Text>
                                         <Text
                                             sx={{
+                                                cursor: "default",
                                                 boxSizing: "border-box",
                                                 whiteSpace: "nowrap",
                                                 overflow: "hidden",
@@ -169,16 +195,26 @@ const App: React.FC = () => {
                                         >
                                             {customer.email}
                                         </Text>
+                                        <Text
+                                            sx={{
+                                                cursor: "default",
+                                                boxSizing: "border-box",
+                                                whiteSpace: "nowrap",
+                                                overflow: "hidden",
+                                                textOverflow: "ellipsis",
+                                            }}
+                                            maxWidth={[160, 200]}
+                                            p={1}
+                                        >
+                                            {`${customer.age} y.o.`}
+                                        </Text>
                                     </Box>
                                 </Box>
                             </Box>
                         )
                     })}
             </Flex>
-            <Box>
-                <Text>{}</Text>
-            </Box>
-        </div>
+        </Box>
     )
 }
 export default App
